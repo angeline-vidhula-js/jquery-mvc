@@ -7,39 +7,34 @@
 </head>
 <body>
 	<div class="container">
-		<div id="append"></div>
+		<ul id="append"></ul>
 	</div>
 	<script src="js/libs/jquery-1.11.2.min.js"></script>
-	<script src="js/libs/jquery.tmpl.js"></script>
+	
+	<script src="js/libs/jsrender.js"></script>
 	<script src="js/libs/jqueryMVC-1.0.js"></script>
 	<script>
 		var sampleModel = new $.Model({
 			onModelUpdate: function (newV, oldV) {
-				console.log(newV)
+				// console.log(newV)
 			}
 		});
 		sampleModel.getAjax({
 			url: 'data/sample.json',
 			success: function (data, success) {
-				// console.log(data)
-				// console.log(sampleModel.getData())
 				setTimeout(function(){
-					sampleModel.setData({
-						"STATUS": 500
-					})
-					sampleModel.setData({
-						"STATUS": 600
-					})
-				}, 100);
+					var dat = [{"STATUS": 500}, {"STATUS": 700}, {"STATUS": 900}];
+					sampleModel.setData(dat)
+				}, 2000);
 			}
 		});
 		var sampleView = new $.View({
 			model: sampleModel,
 			el: $('#append'),
-			formatData: function (data) {
+			/*formatData: function (data) {
 				data.added = "added";
 				return data;
-			},
+			},*/
 			templateUrl: 'templates/sample.html'
 		});
 		var sampleController = new $.Controller({

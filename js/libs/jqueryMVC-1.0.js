@@ -127,7 +127,7 @@
             view = {
                 // init function
                 _initialize: function() {
-                    this._fetchTemplate({});
+                    // this._fetchTemplate({});
                 },
                 // fetch the template if not fetched
                 _fetchTemplate: function (data) {
@@ -135,8 +135,12 @@
                         url: params.templateUrl,
                         async: true,
                         success: function(htmlTpl, status, httpObj) {
-                            var tmplEncode = $.tmpl(htmlTpl, data).appendTo(params.el);
-                            template = $.tmplItem(tmplEncode);
+                            var html;
+                            template = $.templates("tpl", htmlTpl);
+                            html = template.render(data);
+                            params.el.html(html);
+                            // var tmplEncode = $.templates(htmlTpl, data).appendTo(params.el);
+                            // template = $.tmplItem(tmplEncode);
                         }
                     });
                 },
@@ -144,8 +148,10 @@
                 _render: function(data) {
                     if(template) {
                         // update the template with new data
-                        template.data = data;
-                        template.update();                        
+                        var html = template.render(data);
+                        params.el.html(html);
+                    } else {
+                        this._fetchTemplate(data);
                     }
                 }
             };
