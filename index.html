@@ -7,42 +7,97 @@
 </head>
 <body>
 	<div class="container">
-		<ul id="append"></ul>
+		<div id="append1"></div>
+		<div id="append2"></div>
 	</div>
-	<script src="js/libs/jquery-1.11.2.min.js"></script>
-	
-	<script src="js/libs/jsrender.js"></script>
+	<script src="js/libs/jquery-1.11.2.min.js"></script>	
+	<script src="js/libs/jquery.tmpl.js"></script>
 	<script src="js/libs/jqueryMVC-1.0.js"></script>
 	<script>
-		var sampleModel = new $.Model({
+		// component
+		$.JQMVCComponent.list = function (element) {
+			var $el = $(element);
+			$el.find('li').each(function () {
+				$(this).text($(this).text() + ' component')
+			});
+		};
+		var sampleModel1 = new $.Model({
 			onModelUpdate: function (newV, oldV) {
 				// console.log(newV)
 			}
 		});
-		sampleModel.getAjax({
+		sampleModel1.getAjax({
 			url: 'data/sample.json',
 			success: function (data, success) {
 				setTimeout(function(){
-					var dat = [{"STATUS": 500}, {"STATUS": 700}, {"STATUS": 900}];
-					sampleModel.setData(dat)
-				}, 2000);
+					sampleModel1.getAjax({
+						url: 'data/sample2.json',
+						success: function (data, success) {
+							console.log(data)
+						}
+					});
+				}, 100);
 			}
 		});
-		var sampleView = new $.View({
-			model: sampleModel,
-			el: $('#append'),
+		var sampleView1 = new $.View({
+			model: sampleModel1,
+			el: $('#append1'),
 			/*formatData: function (data) {
 				data.added = "added";
 				return data;
 			},*/
 			templateUrl: 'templates/sample.html'
 		});
-		var sampleController = new $.Controller({
-			view: sampleView,
+		var sampleController1 = new $.Controller({
+			view: sampleView1,
 			events: {
                 click: {
                     'li': function () {
-                    	alert("me")
+                    	alert("me 1");
+                    }
+                }
+            }
+		});
+		// sample 2		
+		var sampleModel2 = new $.Model({
+			onModelUpdate: function (newV, oldV) {
+				// console.log(newV)
+			}
+		});
+		sampleModel2.getAjax({
+			url: 'data/sample2.json',
+			success: function (data, success) {
+				setTimeout(function(){
+					sampleModel2.getAjax({
+						url: 'data/sample3.json',
+						success: function (data, success) {
+							console.log(data)
+						}
+					});
+				}, 3000);
+			}
+		});
+		var sampleView2 = new $.View({
+			model: sampleModel2,
+			el: $('#append2'),
+			/*formatData: function (data) {
+				data.added = "added";
+				return data;
+			},*/
+			templateUrl: 'templates/sample.html'
+		});
+		var sampleController2 = new $.Controller({
+			view: sampleView2,
+			events: {
+                click: {
+                    'li': function () {
+                    	alert("me 2");
+                    	sampleController2.offEvent('click','li');
+                    }
+                },
+                mouseover: {
+                    'li': function () {
+                    	console.log("wow")
                     }
                 }
             }
