@@ -1,5 +1,5 @@
 # JQuery-MVC
-An MVC architecture using JQuery for JS functions and DOM manipulations, and JSRender for templating.
+An MVC architecture using JQuery.
 _Primarily ideated and created for my intranet dashboard project for a Retail client._<br/>
 
 <h3>Dependancies</h3>
