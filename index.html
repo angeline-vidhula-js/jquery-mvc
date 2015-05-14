@@ -10,8 +10,7 @@
 		<div id="append1"></div>
 		<div id="append2"></div>
 	</div>
-	<script src="js/libs/jquery-1.11.2.min.js"></script>	
-	<script src="js/libs/jquery.tmpl.js"></script>
+	<script src="js/libs/jquery-1.11.2.min.js"></script>
 	<script src="js/libs/jqueryMVC-1.0.js"></script>
 	<script>
 		// component
@@ -29,14 +28,14 @@
 		sampleModel1.getAjax({
 			url: 'data/sample.json',
 			success: function (data, success) {
-				setTimeout(function(){
-					sampleModel1.getAjax({
-						url: 'data/sample2.json',
-						success: function (data, success) {
-							console.log(data)
-						}
-					});
-				}, 100);
+				// setTimeout(function(){
+				// 	sampleModel1.getAjax({
+				// 		url: 'data/sample2.json',
+				// 		success: function (data, success) {
+				// 			console.log(data)
+				// 		}
+				// 	});
+				// }, 100);
 			}
 		});
 		var sampleView1 = new $.View({
@@ -67,14 +66,14 @@
 		sampleModel2.getAjax({
 			url: 'data/sample2.json',
 			success: function (data, success) {
-				setTimeout(function(){
-					sampleModel2.getAjax({
-						url: 'data/sample3.json',
-						success: function (data, success) {
-							console.log(data)
-						}
-					});
-				}, 3000);
+				// setTimeout(function(){
+				// 	sampleModel2.getAjax({
+				// 		url: 'data/sample3.json',
+				// 		success: function (data, success) {
+				// 			console.log(data)
+				// 		}
+				// 	});
+				// }, 3000);
 			}
 		});
 		var sampleView2 = new $.View({
