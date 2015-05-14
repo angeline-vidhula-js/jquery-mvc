@@ -45,6 +45,8 @@
                     var root = tag.eq(0),
                         innerhtml,
                         lp = 0,
+                        attrlp = 0,
+                        attrib,
                         inlp = 0,
                         replacer1,
                         replacer2,
@@ -56,7 +58,13 @@
                     } else {
                         if(root.parent().attr('jq-repeat')) {
                             for(lp ; lp < data.length ; lp++) {
-                                htmlStr += '<' + tag[0].nodeName + '>';
+                                htmlStr += '<' + tag[0].nodeName;
+                                // add the attributes
+                                attrib = tag[0].attributes;
+                                for(attrlp = 0 ; attrlp < attrib.length ; attrlp++) {
+                                    htmlStr += ' ' + attrib[attrlp].name + '="' + attrib[attrlp].value + '"';
+                                }
+                                htmlStr += '>';
                                 parse = $.parseHTML(tag.html());
                                 for(inlp = 0 ; inlp < parse.length ; inlp++) {
                                     htmlStr += template._repeat($(parse[inlp]), data[lp]);
@@ -65,7 +73,13 @@
                             }
                         } else {
                             if(tag.children().length > 0 && tag[0].nodeName !== '#text') {
-                                htmlStr += '<' + tag[0].nodeName + '>';
+                                htmlStr += '<' + tag[0].nodeName;
+                                // add the attributes
+                                attrib = tag[0].attributes;
+                                for(attrlp = 0 ; attrlp < attrib.length ; attrlp++) {
+                                    htmlStr += ' ' + attrib[attrlp].name + '="' + attrib[attrlp].value + '"';
+                                }
+                                htmlStr += '>';
                                 // there are sub tags
                                 parse = $.parseHTML(tag.html());
                                 for(inlp = 0 ; inlp < parse.length ; inlp++) {
@@ -84,7 +98,13 @@
                                     htmlStr += replacer2[1];
                                 }
                             } else {
-                                htmlStr += '<' + tag[0].nodeName + '>';
+                                htmlStr += '<' + tag[0].nodeName;
+                                // add the attributes
+                                attrib = tag[0].attributes;
+                                for(attrlp = 0 ; attrlp < attrib.length ; attrlp++) {
+                                    htmlStr += ' ' + attrib[attrlp].name + '="' + attrib[attrlp].value + '"';
+                                }
+                                htmlStr += '>';
                                 replacer1 = tag.text().split('${');
                                 if(replacer1.length !== 0) {
                                     htmlStr += replacer1[0];
